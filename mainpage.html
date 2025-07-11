@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>YouTube Clone</title>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Roboto', Arial, sans-serif;
+            background: #181818;
+            color: #fff;
+        }
+        .header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            background: #202020;
+            padding: 10px 24px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+        }
+        .logo img {
+            height: 32px;
+            margin-right: 8px;
+        }
+        .logo span {
+            color: #fff;
+        }
+        .search-bar {
+            flex: 1;
+            display: flex;
+            justify-content: center;
+        }
+        .search-bar input {
+            width: 400px;
+            padding: 8px 12px;
+            border: 1px solid #303030;
+            border-radius: 2px 0 0 2px;
+            font-size: 16px;
+            background: #121212;
+            color: #fff;
+        }
+        .search-bar button {
+            padding: 8px 16px;
+            border: 1px solid #303030;
+            border-left: none;
+            background: #222;
+            color: #fff;
+            border-radius: 0 2px 2px 0;
+            cursor: pointer;
+        }
+        .profile {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: #333;
+        }
+        .main {
+            display: flex;
+        }
+        .sidebar {
+            width: 200px;
+            background: #202020;
+            padding: 16px 0;
+            box-shadow: 1px 0 4px rgba(0,0,0,0.2);
+            min-height: 100vh;
+        }
+        .sidebar ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        .sidebar li {
+            padding: 12px 24px;
+            cursor: pointer;
+            color: #fff;
+            transition: background 0.2s;
+        }
+        .sidebar li:hover {
+            background: #383838;
+        }
+        .content {
+            flex: 1;
+            padding: 24px;
+        }
+        .videos {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 24px;
+        }
+        .video-card {
+            background: #222;
+            border-radius: 8px;
+            overflow: hidden;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            transition: box-shadow 0.2s;
+        }
+        .video-card:hover {
+            box-shadow: 0 4px 16px rgba(0,0,0,0.5);
+        }
+        .video-thumb {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background: #111;
+        }
+        .video-info {
+            padding: 12px;
+        }
+        .video-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin: 0 0 8px 0;
+            color: #fff;
+        }
+        .video-channel {
+            color: #aaa;
+            font-size: 14px;
+        }
+        .video-meta {
+            color: #888;
+            font-size: 13px;
+        }
+        @media (max-width: 700px) {
+            .sidebar { display: none; }
+            .search-bar input { width: 150px; }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <div class="logo">
+            <img src="https://www.svgrepo.com/show/13671/youtube.svg" alt="YouTube Logo">
+            <span style="font-size: 22px; font-weight: bold; color: #cc0000;">YouTube</span>
+        </div>
+        <div class="search-bar">
+            <input type="text" placeholder="Search">
+            <button>Search</button>
+        </div>
+        <div class="profile"></div>
+    </div>
+    <div class="main">
+        <nav class="sidebar">
+            <ul>
+                <li>Home</li>
+                <li>Trending</li>
+                <li>Subscriptions</li>
+                <li>Library</li>
+                <li>History</li>
+            </ul>
+        </nav>
+        <div class="content">
+            <div class="videos">
+                <a href="y.html" style="text-decoration: none; color: inherit;"></a>
+                <div class="video-card">
+                    
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/ysz5S6PUM-U/hqdefault.jpg" alt="Video Thumbnail" >
+                    <div class="video-info">
+                        <div class="video-title">Relaxing Music for Stress Relief</div>
+                        <div class="video-channel">Soothing Relaxation</div>
+                        <div class="video-meta">1.2M views • 2 days ago</div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <a href="y.html" style="text-decoration: none; color: inherit;"></a>
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/3JZ_D3ELwOQ/hqdefault.jpg" alt="Video Thumbnail" onclick="y.html">
+                    <div class="video-info">
+                        <div class="video-title">Top 10 Coding Tips for Beginners</div>
+                        <div class="video-channel">CodeAcademy</div>
+                        <div class="video-meta">850K views • 1 week ago</div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <a href="y.html" style="text-decoration: none; color: inherit;"></a>
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/2Vv-BfVoq4g/hqdefault.jpg" alt="Video Thumbnail" onclick="y.html">
+                    <div class="video-info">
+                        <div class="video-title">Ed Sheeran - Perfect (Official Music Video)</div>
+                        <div class="video-channel">Ed Sheeran</div>
+                        <div class="video-meta">2.3B views • 5 years ago</div>
+                    </div>
+                </div>
+                <div class="video-card">
+                    <a href="y.html" style="text-decoration: none; color: inherit;"></a>
+                    <img class="video-thumb" src="https://i.ytimg.com/vi/tgbNymZ7vqY/hqdefault.jpg" alt="Video Thumbnail" onclick="y.html">
+                    <div class="video-info">
+                        <div class="video-title">Funny Cats Compilation</div>
+                        <div class="video-channel">Cat Lovers</div>
+                        <div class="video-meta">3.1M views • 3 days ago</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</body>
+</html>
