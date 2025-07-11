@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Profile Card Generator</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: Arial;
+            background: #f0f0f0;
+        }
+        .container {
+            max-width: 400px;
+            margin: 30px auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        h2 {
+            text-align: center;
+        }
+        input, textarea, select, button {
+            margin: 8px 0;
+            width: 100%;
+            padding: 8px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+        }
+        button {
+            background: #2196f3;
+            color: #fff;
+            border: none;
+            cursor: pointer;
+        }
+        .cards {
+            margin-top: 20px;
+        }
+        .profile-card {
+            background: #fafafa;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px #ccc;
+            padding: 15px;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .profile-img {
+            width: 80px;
+            height: 80px;
+            object-fit: cover;
+            border: 3px solid #2196f3;
+            margin-bottom: 10px;
+        }
+        .border-square {
+            border-radius: 0;
+        }
+        .border-rounded {
+            border-radius: 15px;
+        }
+        .border-circle {
+            border-radius: 50%;
+        }
+        .dark {
+            background: #222;
+            color: #eee;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Profile Card Generator</h2>
+        <form id="profileForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <textarea id="bio" placeholder="Short Bio" rows="2" required></textarea>
+            <input type="file" id="image" accept="image/*" required>
+            <select id="borderStyle" required>
+                <option value="border-square">Square</option>
+                <option value="border-rounded">Rounded</option>
+                <option value="border-circle">Circle</option>
+            </select>
+            <button type="submit" id="generateBtn">Generate Card</button>
+        </form>
+        <div class="cards" id="cardsContainer"></div>
+    </div>
+    <script>
+        function makeCard(card, idx) {
+            return (
+                "<div class='profile-card" + (card.theme === 'dark' ? " dark" : "") + "' data-idx='" + idx + "'>" +
+                "<img src='" + card.image + "' class='profile-img " + card.borderStyle + "'>" +
+                "<div><b>" + card.name + "</b></div>" +
+                "<div>" + card.bio + "</div>" +
+                "<button class='theme-toggle'>" + (card.theme === 'dark' ? "Light" : "Dark") + " Mode</button>" +
+                "<button class='delete-card'>Delete</button>" +
+                "</div>"
+            );
+        }
+
+        function renderCards() {
+            let cards = JSON.parse(localStorage.getItem('profileCards') || '[]');
+            let container = document.getElementById('cardsContainer');
+            container.innerHTML = '';
+            for (let i = 0; i < cards.length; i++) {
+                container.innerHTML += makeCard(cards[i], i);
+            }
+        }
+
+        document.getElementById('profileForm').onsubmit = function(e) {
+            e.preventDefault();
+            let name = document.getElementById('name').value;
+            let bio = document.getElementById('bio').value;
+            let imageInput = document.getElementById('image');
+            let borderStyle = document.getElementById('borderStyle').value;
+            if (!name || !bio || !imageInput.files[0]) {
+                alert('Please fill all fields and select an image.');
+                return;
+            }
+            let reader = new FileReader();
+            reader.onload = function(e) {
+                let cards = JSON.parse(localStorage.getItem('profileCards') || '[]');
+                let cardObj = {
+                    name: name,
+                    bio: bio,
+                    image: e.target.result,
+                    borderStyle: borderStyle,
+                    theme: 'light'
+                };
+                cards.push(cardObj);
+                localStorage.setItem('profileCards', JSON.stringify(cards));
+                renderCards();
+                document.getElementById('profileForm').reset();
+            };
+            reader.readAsDataURL(imageInput.files[0]);
+        };
+
+        document.getElementById('cardsContainer').onclick = function(e) {
+            let cardEl = e.target.closest('.profile-card');
+            if (!cardEl) return;
+            let idx = cardEl.getAttribute('data-idx');
+            let cards = JSON.parse(localStorage.getItem('profileCards') || '[]');
+            if (e.target.classList.contains('theme-toggle')) {
+                cards[idx].theme = cards[idx].theme === 'dark' ? 'light' : 'dark';
+                localStorage.setItem('profileCards', JSON.stringify(cards));
+                renderCards();
+            } else if (e.target.classList.contains('delete-card')) {
+                cards.splice(idx, 1);
+                localStorage.setItem('profileCards', JSON.stringify(cards));
+                renderCards();
+            }
+        };
+
+        window.onload = renderCards;
+    </script>
+</body>
+</html>
